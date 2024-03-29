@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Custom_DI_Container
+﻿namespace Custom_DI_Container
 {
     internal class Container
     {
@@ -43,15 +41,16 @@ namespace Custom_DI_Container
             return implementation;
         }
 
-        private object ImplementationResolver(Type implementationType){
-
+        private object ImplementationResolver(Type implementationType)
+        {
             var constructor = implementationType.GetConstructors().FirstOrDefault() ?? throw new Exception();
             var parameters = constructor.GetParameters().Select(x => GetService(x.ParameterType)).ToArray() ?? throw new Exception();
 
             return Activator.CreateInstance(implementationType, parameters);
         }
 
-        public T GetService<T>() {
+        public T GetService<T>()
+        {
             return (T)GetService(typeof(T));
         }
     }
