@@ -1,6 +1,6 @@
 ﻿namespace Custom_DI_Container
 {
-    internal enum ServiceLifetime
+    internal enum Lifetime
     {
         Singleton,
         Transient

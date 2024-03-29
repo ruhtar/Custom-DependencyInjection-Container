@@ -5,9 +5,9 @@
         public Type ServiceType { get; } = null!;
         public Type ImplementationType { get; } = null!;
         public object? SingletonImplementation { get; internal set; }
-        public ServiceLifetime Lifetime { get; }
+        public Lifetime Lifetime { get; }
 
-        public ServiceDescriptor(Type serviceType, Type implementationType, ServiceLifetime lifetime)
+        public ServiceDescriptor(Type serviceType, Type implementationType, Lifetime lifetime)
         {
             ServiceType = serviceType;
             ImplementationType = implementationType;

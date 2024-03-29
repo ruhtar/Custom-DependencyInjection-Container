@@ -3,8 +3,8 @@ using Custom_DI_Container.Services;
 
 var container = new Container();
 
-container.RegisterTransient<IRandomNumber, RandomNumber>();
-container.RegisterSingleton<IService, Service>();
+container.AddTransient<IRandomNumber, RandomNumber>();
+container.AddSingleton<IService, Service>();
 
 var service = container.GetService<IService>();
 

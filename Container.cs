@@ -4,19 +4,24 @@
     {
         private readonly List<ServiceDescriptor> _serviceDescriptors = [];
 
-        public void RegisterTransient<TImpl, TService>() where TService : TImpl
+        public void AddTransient<TImpl, TService>() where TService : TImpl
         {
-            var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), ServiceLifetime.Transient);
+            var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), Lifetime.Transient);
             _serviceDescriptors.Add(serviceDescriptor);
         }
 
-        public void RegisterSingleton<TImpl, TService>() where TService : TImpl
+        public void AddSingleton<TImpl, TService>() where TService : TImpl
         {
-            var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), ServiceLifetime.Singleton);
+            var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), Lifetime.Singleton);
             _serviceDescriptors.Add(serviceDescriptor);
         }
 
         //TODO: Scoped?
+
+        public T GetService<T>()
+        {
+            return (T)GetService(typeof(T));
+        }
 
         private object GetService(Type type)
         {
@@ -33,7 +38,7 @@
 
             var implementation = ImplementationResolver(implementationType);
 
-            if (serviceDescriptor.Lifetime == ServiceLifetime.Singleton)
+            if (serviceDescriptor.Lifetime == Lifetime.Singleton)
             {
                 serviceDescriptor.SingletonImplementation = implementation;
             }
@@ -47,11 +52,6 @@
             var parameters = constructor.GetParameters().Select(x => GetService(x.ParameterType)).ToArray() ?? throw new Exception();
 
             return Activator.CreateInstance(implementationType, parameters);
-        }
-
-        public T GetService<T>()
-        {
-            return (T)GetService(typeof(T));
         }
     }
 }
