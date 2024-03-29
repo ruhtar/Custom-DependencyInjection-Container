@@ -1,15 +1,13 @@
 ﻿using Custom_DI_Container;
 using Custom_DI_Container.Services;
 
-var customContainer = new Container();
+var container = new Container();
 
-customContainer.RegisterSingleton<IService, Service>();
+container.RegisterTransient<IRandomNumber, RandomNumber>();
+container.RegisterSingleton<IService, Service>();
 
-var service1 = customContainer.GetService<IService>();
+var service = container.GetService<IService>();
 
-//Testing singleton instance
-Console.WriteLine($"(Singleton) The services are the same: {service1}");
-
-service1.Print();
+service.Print();
 
 Console.ReadLine();

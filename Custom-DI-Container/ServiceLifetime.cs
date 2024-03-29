@@ -4,5 +4,6 @@
     {
         Singleton,
         Transient
+        //TODO: SCOPED
     }
 }
