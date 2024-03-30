@@ -1,19 +1,19 @@
-﻿namespace Custom_DI_Container.Services
+﻿internal interface IRandomNumber
 {
-    internal interface IRandomNumber
+    int Generate();
+}
+
+internal class RandomNumber : IRandomNumber
+{
+    private int _random;
+
+    public RandomNumber()
     {
-        string Generate();
+        _random = new Random().Next(1, 101);
     }
 
-    internal class RandomNumber : IRandomNumber
+    public int Generate()
     {
-        private string _guid;
-
-        public RandomNumber()
-        {
-            _guid = Guid.NewGuid().ToString();
-        }
-
-        public string Generate() => _guid;
+        return _random;
     }
 }
