@@ -15,9 +15,6 @@
             var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), Lifetime.Singleton);
             _serviceDescriptors.Add(serviceDescriptor);
         }
-
-        //TODO: Scoped?
-
         public T GetService<T>()
         {
             return (T)GetService(typeof(T));
