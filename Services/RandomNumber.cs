@@ -1,4 +1,6 @@
-﻿internal interface IRandomNumber
+﻿namespace Custom_DI_Container.Services;
+
+internal interface IRandomNumber
 {
     string Generate();
 }
