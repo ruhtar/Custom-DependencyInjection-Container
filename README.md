@@ -1,9 +1,9 @@
 # Custom DI Container 📦
 
-This project is a very lightweight Dependency Injection (DI) Container implemented in C#. It provides a simple and minimalistic approach to managing dependencies. My project doesn't come close to the .NET dependency injection container, but it was fun to study and create something that mimics its functionality. 
+This project is a very lightweight Dependency Injection (DI) Container implemented in C#. It provides a simple and minimalistic approach to managing dependencies. My project doesn't come close to the .NET dependency injection container, but it was fun to study and create something that mimics its functionality 😛
 
 ## What is Dependency Injection?
-Dependency Injection is a design pattern where the dependencies of a class are provided from the outside rather than created within the class itself. This pattern encourages modular design by decoupling classes from their dependencies, making them easier to manage, test, and reuse.
+Dependency injection (DI) is a design pattern used in software development to achieve loose coupling between components or modules within an application. In DI, instead of a component creating its dependencies directly, the dependencies are provided (injected) from outside. This allows for more flexible, maintainable, and testable code, as dependencies can be easily swapped or mocked during testing. DI helps to improve modularity, scalability, and the overall architecture of the software.
 In a typical DI scenario:
 
 - Dependencies are defined as interfaces.
@@ -13,14 +13,14 @@ In a typical DI scenario:
 ## Project Overview
 This project consists of a custom DI Container implementation and a simple console application demonstrating its usage. Here's a quick rundown of the components:
 
-- Container.cs: This class represents the DI container. It provides methods for registering dependencies (AddSingleton and AddTransient) and resolving them (GetService).
+- `Container.cs`: This class represents the DI container. It provides methods for registering dependencies (`AddSingleton` and `AddTransient`) and resolving them (`GetService`).
 
-- Lifetime.cs: An enumeration representing the lifetime of registered services. It defines two options: Singleton (a single instance for the entire application) and Transient (a new instance every time it's requested).
+- `Lifetime.cs`: This class represents the enumeration for the lifetime of registered services. It defines two options: Singleton (a single instance for the entire application) and Transient (a new instance every time it's requested).
 
-- IRandomNumber.cs: An interface defining the contract for generating random numbers.
+- `IRandomNumber.cs`: This interface defines the contract for generating random numbers.
 
-- RandomNumber.cs: A class implementing the IRandomNumber interface. It generates random numbers.
+- `RandomNumber.cs`: This class implements the `IRandomNumber` interface. It generates a random Guid.
 
-- IService.cs: An interface defining a service with a Print method.
+- `IService.cs`: This interface defines a service with a Print method.
 
-- Service.cs: A class implementing the IService interface. It provides a method to print a message.
+- `Service.cs`: This class implements the `IService` interface. It provides a method to print a message.
