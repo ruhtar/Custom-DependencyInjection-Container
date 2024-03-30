@@ -1,19 +1,16 @@
 ﻿internal interface IRandomNumber
 {
-    int Generate();
+    string Generate();
 }
 
 internal class RandomNumber : IRandomNumber
 {
-    private int _random;
+    private string _guid;
 
     public RandomNumber()
     {
-        _random = new Random().Next(1, 101);
+        _guid = Guid.NewGuid().ToString();
     }
 
-    public int Generate()
-    {
-        return _random;
-    }
+    public string Generate() => _guid;
 }

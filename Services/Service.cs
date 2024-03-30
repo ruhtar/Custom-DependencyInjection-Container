@@ -1,15 +1,15 @@
 ﻿namespace Custom_DI_Container.Services
 {
-    internal interface IFirstService
+    internal interface IService
     {
         void Print();
     }
 
-    internal class FirstService : IFirstService
+    internal class Service : IService
     {
         private readonly IRandomNumber _randomNumber;
 
-        public FirstService(IRandomNumber randomNumber)
+        public Service(IRandomNumber randomNumber)
         {
             _randomNumber = randomNumber;
         }
