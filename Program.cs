@@ -7,35 +7,43 @@ internal class Program
     {
         while (true)
         {
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("1. Test RandomNumber as a Singleton");
-            Console.WriteLine("2. Test RandomNumber as a Transient");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("Choose an option:" + "\n");
+            Console.WriteLine("1. Test RandomNumber as a Singleton" + "\n");
+            Console.WriteLine("2. Test RandomNumber as a Transient" + "\n");
+            Console.WriteLine("3. Exit" + "\n");
             var choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    TestSingleton();
+                    TestsLifetime(Lifetime.Singleton);
                     break;
                 case "2":
-                    TestTransient();
+                    TestsLifetime(Lifetime.Transient);
                     break;
                 case "3":
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("Invalid option. Please choose again.");
+                    Console.WriteLine("Invalid option. Please choose again." + "\n");
                     break;
             }
         }
     }
 
-    static void TestSingleton()
+    static void TestsLifetime(Lifetime lifetime)
     {
         var container = new Container();
 
-        container.AddSingleton<IRandomNumber, RandomNumber>();
+        if (lifetime == Lifetime.Singleton)
+        {
+            container.AddSingleton<IRandomNumber, RandomNumber>();
+        }
+        else
+        {
+            container.AddTransient<IRandomNumber, RandomNumber>();
+        }
+
         container.AddTransient<IService, Service>();
 
         var service1 = container.GetService<IService>();
@@ -43,31 +51,21 @@ internal class Program
         var randomNumber1 = container.GetService<IRandomNumber>();
         var randomNumber2 = container.GetService<IRandomNumber>();
 
-        service1.Print();
-        service2.Print();
-        Console.WriteLine($"Is RandomNumber Singleton? {randomNumber2 == randomNumber1}");
+        var isSingleton = randomNumber2 == randomNumber1;
+        if (isSingleton)
+        {
+            Console.WriteLine($"RandomNumber is a Singleton instance." + "\n");
+        }
+        else
+        {
+            Console.WriteLine($"RandomNumber is a Transient instance." + "\n");
 
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
-    }
-
-    static void TestTransient()
-    {
-        var container = new Container();
-
-        container.AddTransient<IRandomNumber, RandomNumber>();
-        container.AddTransient<IService, Service>();
-
-        var service1 = container.GetService<IService>();
-        var service2 = container.GetService<IService>();
-        var randomNumber1 = container.GetService<IRandomNumber>();
-        var randomNumber2 = container.GetService<IRandomNumber>();
+        }
 
         service1.Print();
         service2.Print();
-        Console.WriteLine($"Is RandomNumber Singleton? {randomNumber2 == randomNumber1}");
 
-        Console.WriteLine("Press Enter to continue...");
+        Console.WriteLine("Press Enter to continue..." + "\n");
         Console.ReadLine();
     }
 }

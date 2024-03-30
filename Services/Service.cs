@@ -16,7 +16,7 @@
 
         public void Print()
         {
-            Console.WriteLine($"Hello, world! Your lucky number is: {_randomNumber.Generate()}");
+            Console.WriteLine($"Hello, world! Heres a Guid: {_randomNumber.Generate()}");
             Console.WriteLine();
         }
     }
