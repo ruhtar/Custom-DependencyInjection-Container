@@ -2,11 +2,18 @@
 {
     internal interface IRandomNumber
     {
-        Guid Generate();
+        string Generate();
     }
 
     internal class RandomNumber : IRandomNumber
     {
-        public Guid Generate() => Guid.NewGuid();
+        private string _guid;
+
+        public RandomNumber()
+        {
+            _guid = Guid.NewGuid().ToString();
+        }
+
+        public string Generate() => _guid;
     }
 }
