@@ -3,7 +3,7 @@ using Custom_DI_Container.Services;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static void Main()
     {
         while (true)
         {
@@ -59,7 +59,6 @@ internal class Program
         else
         {
             Console.WriteLine($"RandomNumber is a Transient instance." + "\n");
-
         }
 
         service1.Print();

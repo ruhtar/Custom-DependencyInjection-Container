@@ -4,15 +4,15 @@
     {
         private readonly List<ServiceDescriptor> _serviceDescriptors = [];
 
-        public void AddTransient<TImpl, TService>() where TService : TImpl
+        public void AddTransient<TContract, TImplementation>() where TImplementation : TContract
         {
-            var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), Lifetime.Transient);
+            var serviceDescriptor = new ServiceDescriptor(typeof(TContract), typeof(TImplementation), Lifetime.Transient);
             _serviceDescriptors.Add(serviceDescriptor);
         }
 
-        public void AddSingleton<TImpl, TService>() where TService : TImpl
+        public void AddSingleton<TContract, TImplementation>() where TImplementation : TContract
         {
-            var serviceDescriptor = new ServiceDescriptor(typeof(TImpl), typeof(TService), Lifetime.Singleton);
+            var serviceDescriptor = new ServiceDescriptor(typeof(TContract), typeof(TImplementation), Lifetime.Singleton);
             _serviceDescriptors.Add(serviceDescriptor);
         }
         public T GetService<T>()
@@ -22,7 +22,7 @@
 
         private object GetService(Type type)
         {
-            var serviceDescriptor = _serviceDescriptors.FirstOrDefault(x => x.ServiceType == type)
+            var serviceDescriptor = _serviceDescriptors.FirstOrDefault(x => x.ContractType == type)
                 ?? throw new Exception($"Service {type.Name} not found on the DI Container");
 
             if (serviceDescriptor.SingletonImplementation != null) //Singleton instance
@@ -36,9 +36,7 @@
             var implementation = ImplementationResolver(implementationType);
 
             if (serviceDescriptor.Lifetime == Lifetime.Singleton)
-            {
                 serviceDescriptor.SingletonImplementation = implementation;
-            }
 
             return implementation;
         }
@@ -48,8 +46,7 @@
             var constructor = implementationType.GetConstructors().FirstOrDefault() ?? throw new Exception();
             var parameters = constructor.GetParameters().Select(x => GetService(x.ParameterType)).ToArray() ?? throw new Exception();
 
-            return Activator.CreateInstance(implementationType, parameters);
+            return Activator.CreateInstance(implementationType, parameters) ?? throw new Exception("Not found a constructor that best fits the parameters");
         }
-
     }
 }

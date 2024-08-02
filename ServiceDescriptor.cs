@@ -2,14 +2,14 @@
 {
     internal class ServiceDescriptor
     {
-        public Type ServiceType { get; } = null!;
+        public Type ContractType { get; } = null!;
         public Type ImplementationType { get; } = null!;
         public object? SingletonImplementation { get; internal set; }
         public Lifetime Lifetime { get; }
 
-        public ServiceDescriptor(Type serviceType, Type implementationType, Lifetime lifetime)
+        public ServiceDescriptor(Type contractType, Type implementationType, Lifetime lifetime)
         {
-            ServiceType = serviceType;
+            ContractType = contractType;
             ImplementationType = implementationType;
             Lifetime = lifetime;
         }
